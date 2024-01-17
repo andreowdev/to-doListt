@@ -1,0 +1,225 @@
+primeiro problema: pega o texto que o usuário vai digitar.
+
+segundo problema: saber quando meu botão foi clicado
+
+resolução: sempre que for fazer isso usamos o button.addEventListener ('click', nomeDaFunção)
+
+terceiro problema: com o valor em mãos agora precisamos guardar esse valor
+
+resolução: criei um array vazio com o nome de myList e criei uma função com o nome newTask()
+
+peguei o meu array e usei o .push pra quando algo for digitado dentro do meu input, ser guardado dentro da minha array
+
+SINTAXE:
+
+function newTask() {
+  myList.push(input.value)
+
+  console.log(myList)
+}
+
+QUARTO PROBLEMA: IMPRIMIR AS TAREFAS
+
+Imprimir a Li na tela usando o Inner.html
+
+usamos també o forEach, o que ele faz?
+
+Ele vai item por item do array 
+
+Dentro do forEach eu chamei a variável que eu tinha criado o newLi e dentro do newLi eu coloquei o html entre crases pra eu poder efetuar a mudança no paragrafo 
+
+pra jogar isso pro html usamos o innerHTML que vai receber toda a newLi
+
+sintaxe: 
+
+function showTask() {
+  
+  let newLi = ""
+
+  myList.forEach((tarefa) => {
+    newLi = newLi +  
+    `
+
+    <li class="task">
+        <img src="./img/checked.png" alt="check-na-tarefa">
+        <p>${tarefa}</p>
+        <img src="./img/trash.png" alt="tarefa-para-o-lixo")">
+    </li>
+    
+    `
+  })
+  
+    fullList.innerHTML = newLi
+}
+
+QUINTO PROBLEMA: as caixinhas de deletar e de ckeck não estão ativada, como ativar?
+
+primeiro ativamos ela e fazemos isso da seguinte maneira: onclick="deleteItem()
+
+isso significa que no click ele vai ativar a função de deletar ou dar check em um item
+
+SEXTO PROBLEMA: COMO DELETAR UM ITEM?
+
+Primeiro você tem que saber a posição dos itens e como fazemos isso?
+
+dentro do forEach que é responsável por verificar oq tem dentro das array colocamos o parametro index e dentro da função deleItem façamos a mesma coisa e assim conseguimos descobrir qual a posição de cada item da lista
+
+sintaxe:
+
+onclick="deleteItem(${index})")
+
+function deleteItem(index){
+  console.log(index)
+}
+
+SETIMO PROBLEMA: Como deletar itens?
+
+Preciso ir na minha lista e deletar esses itens e no JS temos o splice.
+
+O que o splice faz? 
+ele permite que eu delete quem que quiser dentro do meu array, eu só preciso falar duas coisas pra ele.
+
+1.Qual a posição do array
+2.Quantos itens a partir dessa posição
+
+IMPORTANTE!!!
+
+ANDREO DO FUTURO NÃO SE ESQUEÇA DE CHAMAR A FUNÇÃO QUE MOSTRA A LISTA
+
+Sintaxe:
+
+function deleteItem(index){
+  myList.splice(index, 1)
+
+  showTask()
+}
+
+OITAVO PROBLEMA: QUANDO EU CLICAR TEM QUE MOSTRAR QUE A TAREFA ESTÁ CONCLUIDA
+
+repetimos o mesmo processo que fizemos para o delete.
+
+sintaxe: 
+
+function CompleteTask(index) {
+  myList[index].completed = 
+  !myList[index].completed
+
+  showTask();
+}
+
+O ponto de exclamação após o sinal igual significar que vai ser o mesmo código só que na ordem contrárica
+
+NONO PROBLEMA: QUANDO APERTA F5 TODOS OS ITENS SALVOS SOMEM, COMO GUARDAR ELES NO LOCAL STORAGE?
+
+usando o comando localStorage vamos começar a montar esse sistema.
+
+no localStorage colocamos um item ou seja, usamos o setItem e no set item temos que definir 2 parametros.
+
+1. o nome
+2.oque eu quero colocar ali dentro, mas tem um porém o localStorage só aceita Strings e o nosso dado é um objeto, COMO RESOLVEMOS ISSO??
+
+usamos o JSON.stringfy, o que ele faz??
+
+resposta: ele transforma tudo o que tiver dentro dele em string
+
+com isso ele guarda as informações dentro do localstorage
+
+SINTAXE: 
+localStorage.setItem('task', JSON.stringify(myList) )
+
+segunda parte: PEGAR OS ITENS DE DENTRO DO LOCALSTORAGE
+
+Em vez de dar um setItem(que define o local storage), vamos dar um getItem(pegar o que tem dentro do local storage)
+
+SINTAXE: 
+
+function reloadItem(){
+  const LocalStorageTask = localStorage.getItem('task')
+
+  console.log(LocalStorageTask)
+}
+
+PARTE TRÊS: COLOCAR AS TAREFAS DENTRO DA LISTA DE ITENS
+
+Lembra que linhas de códigos atrás transformados o myList em uma string?
+
+Agora precisamos transforma-lo em um objeto novamente e como fazemos isso ?
+
+Usando o JSON.parse(o que tiver aqui dentro se torna um objeto)
+
+Após transforma a string em um objeto precisamos chamar a função pra mostrar as tarefas
+
+SINTAXE:
+
+function reloadItem(){
+  const LocalStorageTask = localStorage.getItem('task')
+
+  myList = JSON.parse(LocalStorageTask)
+  console.log(LocalStorageTask)
+
+  showTask()
+}
+
+IMPORTANTE!! ERRO QUANDO É APAGADO OS DADOS DO LOCAL STORAGE 
+
+O Erro acontece por que ele não encontra nada no local storage
+
+podemos resolver isso usando If(SE)
+
+if (LocalStorageTask) {
+    myList = JSON.parse(LocalStorageTask)
+    console.log(LocalStorageTask)
+  }
+
+ele só vai adicionar dentro da minha lista de item se ele encontrar o local storage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
